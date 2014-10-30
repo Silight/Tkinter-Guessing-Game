@@ -16,6 +16,16 @@ def exit_confirm():
         sys.exit()
 
 
+def run_logic(guess):
+    guess = int(guess)
+    if guess == get_number():
+        return "You got it!"
+    elif guess > get_number():
+        return "Too Low!"
+    else:
+        return "Too High!"
+
+
 class Application:
 
     def __init__(self, master):
@@ -44,14 +54,11 @@ Take a guess!
         guess = Entry(textvariable=entry_guess, width=3)
         guess.pack()
 
-        submit_button = Button(text="Submit", command=lambda: self.run_logic(guess.get()))
+        submit_button = Button(text="Submit", command=response_text)
         submit_button.pack()
 
         response = Label(root, text=response_text, bd=1, relief=SUNKEN, anchor=S)
         response.pack(side=BOTTOM, fill=X)
-
-    def run_logic(self, guess):
-        pass
 
 
 root = Tk()
