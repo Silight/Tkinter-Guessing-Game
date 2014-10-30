@@ -21,9 +21,9 @@ def run_logic(guess):
     if guess == get_number():
         return "You got it!"
     elif guess > get_number():
-        return "Too Low!"
-    else:
         return "Too High!"
+    else:
+        return "Too Low!"
 
 
 class Application:
