@@ -16,16 +16,6 @@ def exit_confirm():
         sys.exit()
 
 
-def run_logic(guess):
-    guess = int(guess)
-    if guess == get_number():
-        return "You got it!"
-    elif guess > get_number():
-        return "Too High!"
-    else:
-        return "Too Low!"
-
-
 class Application:
 
     def __init__(self, master):
@@ -43,22 +33,30 @@ Take a guess!
         response_text = "Enter a number"
         top_menu = Menu(root)
         root.config(menu=top_menu)
-
+        response = Label(root, text=response_text, bd=1, relief=SUNKEN, anchor=S)
+        response.pack(side=BOTTOM, fill=X)
         sub_menu = Menu(top_menu)
         top_menu.add_cascade(label="File", menu=sub_menu)
         sub_menu.add_command(label="Exit", command=exit_confirm)
-
         self.instruct.pack()
-
-        entry_guess = IntVar()
-        guess = Entry(textvariable=entry_guess, width=3)
-        guess.pack()
-
-        submit_button = Button(text="Submit", command=response_text)
+        guess_entry = Entry(root, width=3)
+        guess_entry.pack()
+        guess_entry.insert(0, 0)
+        player_guess = int(guess_entry.get())
+        submit_button = Button(text="Submit", command=lambda: self.button_event(player_guess, get_number()))
         submit_button.pack()
+        # needs to respond with the result of the guess
 
-        response = Label(root, text=response_text, bd=1, relief=SUNKEN, anchor=S)
-        response.pack(side=BOTTOM, fill=X)
+
+    def button_event(self, player_guess, get_number):
+        pg = int(player_guess)
+        gn = get_number
+        if pg == gn:
+            return 1
+        elif pg < gn:
+            return 2
+        else:
+            return 3
 
 
 root = Tk()
